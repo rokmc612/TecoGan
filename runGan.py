@@ -67,7 +67,7 @@ if( runcase == 0 ): # download inference data, trained models
 elif( runcase == 1 ): # inference a trained model
     
     dirstr = './results/' # the place to save the results
-    testpre = ['calendar'] # the test cases
+    testpre = ['test_movie'] # the test cases
 
     if (not os.path.exists(dirstr)): os.mkdir(dirstr)
     
@@ -78,7 +78,7 @@ elif( runcase == 1 ): # inference a trained model
             "--output_dir",  dirstr,    # Set the place to put the results.
             "--summary_dir", os.path.join(dirstr, 'log/'), # Set the place to put the log. 
             "--mode","inference", 
-            "--input_dir_LR", os.path.join("./LR/", testpre[nn]),   # the LR directory
+            "--input_dir_LR", os.path.join("../test/", testpre[nn]),   # the LR directory
             #"--input_dir_HR", os.path.join("./HR/", testpre[nn]),  # the HR directory
             # one of (input_dir_HR,input_dir_LR) should be given
             "--output_pre", testpre[nn], # the subfolder to save current scene, optional
@@ -132,7 +132,7 @@ elif( runcase == 3 ): # Train TecoGAN
         cmd0 += "unzip model/ofrvsr.zip -d model; rm model/ofrvsr.zip"
         subprocess.call(cmd0, shell=True)
     
-    TrainingDataPath = "/mnt/netdisk/video_data/" 
+    TrainingDataPath = "/home/harold/super_resolution/video/" 
     
     '''Prepare Training Folder'''
     # path appendix, manually define it, or use the current datetime, now_str = "mm-dd-hh"
@@ -177,9 +177,9 @@ elif( runcase == 3 ): # Train TecoGAN
     cmd1 += [
         "--input_video_dir", TrainingDataPath, 
         "--input_video_pre", "scene",
-        "--str_dir", "2000",
-        "--end_dir", "2250",
-        "--end_dir_val", "2290",
+        "--str_dir", "2001",
+        "--end_dir", "2059",
+        "--end_dir_val", "2099",
         "--max_frm", "119",
         # -- cpu memory for data loading --
         "--queue_thread", "12",# Cpu threads for the data. >4 to speedup the training
@@ -271,13 +271,13 @@ elif( runcase == 4 ): # Train FRVSR, loss = l2 warp + l2 content
         "--nopingpang",
     ]
     '''Video Training data... Same as runcase 3...'''
-    TrainingDataPath = "/mnt/netdisk/video_data/"
+    TrainingDataPath = "/home/harold/super_resolution/video/"
     cmd1 += [
         "--input_video_dir", TrainingDataPath, 
         "--input_video_pre", "scene",
-        "--str_dir", "2000",
-        "--end_dir", "2250",
-        "--end_dir_val", "2290",
+        "--str_dir", "2001",
+        "--end_dir", "2059",
+        "--end_dir_val", "2099",
         "--max_frm", "119",
         # -- cpu memory for data loading --
         "--queue_thread", "12",# Cpu threads for the data. >4 to speedup the training
